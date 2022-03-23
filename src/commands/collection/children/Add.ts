@@ -1,3 +1,4 @@
+import { getUser } from '../../../utils/user.js';
 import { Command } from '../../../models/Command.js';
 
 export const Add = new Command({
@@ -11,5 +12,11 @@ export const Add = new Command({
       required: true,
     },
   ],
-  action() {},
+  action(name: string, options: { [key: string]: any }) {
+    const user = getUser();
+    user.collections.push({
+      name,
+      requests: [],
+    });
+  },
 });

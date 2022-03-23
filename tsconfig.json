@@ -60,7 +60,7 @@
     "noImplicitReturns": true, // Always have a code path that returns
     "noImplicitThis": true, // Don't allow "this" to implicitly be any
     "noUnusedLocals": false, // No error when local variables aren't used
-    "noUnusedParameters": true, // Error when function parameters aren't used
+    "noUnusedParameters": false, // No error when function parameters aren't used
     "noErrorTruncation": true, // Don't shorten types in error messages
     "preserveWatchOutput": false, // Preserve watch output
     "pretty": true, // Make the terminal output look nicer

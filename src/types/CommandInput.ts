@@ -17,5 +17,5 @@ export interface CommandInput {
     default?: unknown;
   }[];
   children?: Command[];
-  action?: () => void;
+  action?: (...args: any) => void;
 }
