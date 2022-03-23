@@ -7,7 +7,9 @@ export interface CommandInput {
   aliases?: string[];
   options?: {
     flag: string;
+    name?: string;
     description: string;
+    repeatable?: boolean;
     default?: string | boolean;
   }[];
   arguments?: {

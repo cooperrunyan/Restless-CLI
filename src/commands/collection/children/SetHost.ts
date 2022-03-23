@@ -1,9 +1,10 @@
 import { getUser, updateUser } from '../../../utils/user.js';
 import { Command } from '../../../models/Command.js';
+import { trim } from '../../../utils/trim.js';
 
-export const AddHost = new Command({
-  name: 'add-host',
-  description: 'Add a host',
+export const SetHost = new Command({
+  name: 'set-host',
+  description: 'Set a host',
   arguments: [
     {
       name: 'indentifier',
@@ -21,11 +22,9 @@ export const AddHost = new Command({
     if (!user.currentSelectedCollection) throw new Error('No current collection to work on');
     for (const collection of user.collections) {
       if (collection.name === user.currentSelectedCollection) {
-        collection.hosts.push({
-          indentifier,
-          url: new URL(url),
-        });
+        collection.hosts[indentifier] = trim(url, false);
       }
     }
+    updateUser(user);
   },
 });

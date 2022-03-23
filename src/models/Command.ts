@@ -16,7 +16,9 @@ export class Command extends commander.Command {
 
     if (command.options)
       for (const option of command.options) {
-        this.option(option.flag, option.description, option.default);
+        const f = [`${option.flag} ${option.name ? '<' + option.name + '>' : ''}`.trim(), option.description] as const;
+
+        option.repeatable ? this.option(...f, accumulator, []) : this.option(...f, option.default);
       }
 
     if (command.arguments)
@@ -41,4 +43,9 @@ function wrapArgument(str: string, required: boolean) {
   const close = required ? '>' : ']';
 
   return `${open}${str}${close}`;
+}
+
+function accumulator(val: any, memo: any) {
+  memo.push(val);
+  return memo;
 }
