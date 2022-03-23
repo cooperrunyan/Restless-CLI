@@ -1,4 +1,4 @@
-import { Program } from './commands/Program.js';
+import { Program } from './models/Program.js';
 
 new Program({
   name: 'restless',
