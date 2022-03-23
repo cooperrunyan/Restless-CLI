@@ -1,9 +1,12 @@
-export namespace Restless {
-  export class App {
-    public static Main() {
-      console.log('hello world');
-    }
-  }
-}
+import { Program } from './commands/Program.js';
 
-Restless.App.Main();
+new Program({
+  name: 'restless',
+  version: '0.0.0',
+  aliases: [],
+  arguments: [],
+  options: [],
+  action() {
+    console.log('hello world');
+  },
+});

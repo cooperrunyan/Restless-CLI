@@ -59,7 +59,7 @@
     "noImplicitOverride": true, // Specifically write the word "override" before class properties if it overrides
     "noImplicitReturns": true, // Always have a code path that returns
     "noImplicitThis": true, // Don't allow "this" to implicitly be any
-    "noUnusedLocals": true, // Error when local variables aren't used
+    "noUnusedLocals": false, // No error when local variables aren't used
     "noUnusedParameters": true, // Error when function parameters aren't used
     "noErrorTruncation": true, // Don't shorten types in error messages
     "preserveWatchOutput": false, // Preserve watch output
