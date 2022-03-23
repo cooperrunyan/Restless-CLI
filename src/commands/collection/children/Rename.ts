@@ -27,6 +27,9 @@ export const Rename = new Command({
     for (const collection of user.collections) {
       if (collection.name === oldName) {
         collection.name = newName;
+
+        if (user.currentSelectedCollection === oldName) user.currentSelectedCollection = newName;
+
         exists = true;
         break;
       }

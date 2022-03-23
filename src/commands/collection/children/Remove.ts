@@ -19,6 +19,8 @@ export const Remove = new Command({
     for (const collection of user.collections) {
       if (collection.name === name) {
         user.collections.splice(user.collections.indexOf(collection), 1);
+        user.currentSelectedCollection = null;
+
         exists = true;
         break;
       }

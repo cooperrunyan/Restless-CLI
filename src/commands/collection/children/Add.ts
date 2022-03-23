@@ -24,6 +24,8 @@ export const Add = new Command({
       requests: [],
     });
 
+    user.currentSelectedCollection = name;
+
     updateUser(user);
   },
 });
