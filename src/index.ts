@@ -1,5 +1,6 @@
 import { Program } from './models/Program.js';
 import { Collection } from './commands/collection/Collection.js';
+import { GetStarted } from './commands/get-started/GetStarted.js';
 
 new Program({
   name: 'rest',
@@ -8,6 +9,6 @@ new Program({
   aliases: [],
   arguments: [],
   options: [],
-  children: [Collection],
+  children: [Collection, GetStarted],
   action() {},
 });
