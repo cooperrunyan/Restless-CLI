@@ -2,7 +2,7 @@
   "name": "restless",
   "version": "0.0.0",
   "description": "A CLI-based http client",
-  "main": "index.js",
+  "main": "bin/index.js",
   "type": "module",
   "license": "epl-2.0",
   "scripts": {
