@@ -20,3 +20,8 @@ export function updateUser(user: any) {
   const root = getProjectRoot().pathname;
   fs.writeFileSync(`${root}/user.json`, JSON.stringify(user, null, process.env.NODE_ENV !== 'production' ? 2 : undefined));
 }
+
+export function getUser() {
+  if (!checkForUser()) createUser();
+  return JSON.parse(fs.readFileSync(`${getProjectRoot().pathname}/user.json`, 'utf-8') || '{}');
+}
