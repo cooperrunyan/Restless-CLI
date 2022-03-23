@@ -19,7 +19,12 @@ export const Set = new Command({
     {
       flag: '--host',
       name: 'host',
-      description: 'The host for the request',
+      description: 'The host for the request (see `restlss collection set-host`)',
+    },
+    {
+      flag: '--url',
+      name: 'url',
+      description: 'The url for the request',
     },
     {
       flag: '-e, --endpoint',
@@ -77,6 +82,10 @@ export const Set = new Command({
           }
 
           request.body = body;
+        }
+
+        if (args.url) {
+          request.url = trim(args.url, false, false);
         }
 
         if (args.host) {

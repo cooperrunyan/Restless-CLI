@@ -6,6 +6,7 @@ export type Request = {
   method?: Method;
   body?: Body;
   host?: string;
+  url?: string;
   endpoint?: string;
   contentType?: 'application/json' | 'text/plain' | 'text/yaml';
   headers?: [string, string][];
