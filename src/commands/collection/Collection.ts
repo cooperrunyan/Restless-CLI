@@ -5,10 +5,10 @@ import { Remove } from './children/Remove.js';
 import { Rename } from './children/Rename.js';
 import { Use } from './children/Use.js';
 
-export const Group = new Command({
-  name: 'group',
-  description: 'Control API request groups',
-  aliases: ['g', 'groups'],
+export const Collection = new Command({
+  name: 'collection',
+  description: 'Control API request collections',
+  aliases: ['c', 'collections'],
   children: [Add, Rename, Remove, List, Use],
   action() {},
 });

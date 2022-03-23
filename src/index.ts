@@ -1,5 +1,5 @@
 import { Program } from './models/Program.js';
-import { Group } from './commands/group/Group.js';
+import { Collection } from './commands/collection/Collection.js';
 
 new Program({
   name: 'rest',
@@ -8,6 +8,6 @@ new Program({
   aliases: [],
   arguments: [],
   options: [],
-  children: [Group],
+  children: [Collection],
   action() {},
 });
