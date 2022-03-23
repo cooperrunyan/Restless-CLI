@@ -1,6 +1,6 @@
 import type { Collection } from "./Collection"
 
 export type User = {
-  currentSelectedCollection: number | null,
+  currentSelectedCollection: string | null,
   collections: Collection[]
 }

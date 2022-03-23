@@ -4,10 +4,6 @@
   "compilerOptions": {
     "rootDir": "./src", // Where are .ts files stored
     "outDir": "./bin", // Where will outputted files be stored
-    "paths": {
-      "~/*": ["./src/*"] // Specify that "~/path/to/file" will be quivalent to "./src/path/to/file"
-    },
-
     "allowJs": true, // Allow the usage of javascript files
     "allowSyntheticDefaultImports": true, // Import a default even when there isn't one
     "allowUnreachableCode": false, // Throw an error if code can never be reached

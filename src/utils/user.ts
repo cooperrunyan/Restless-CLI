@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { getProjectRoot } from './getProjectRoot.js';
 import { userTemplate } from '../models/userTemplate.js';
-import { User } from '~/types/User.js';
+import type { User } from '../types/User.js';
 
 export function createUser() {
   if (checkForUser()) return;

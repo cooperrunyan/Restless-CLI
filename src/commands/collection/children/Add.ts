@@ -1,4 +1,4 @@
-import { getUser } from '../../../utils/user.js';
+import { getUser, updateUser } from '../../../utils/user.js';
 import { Command } from '../../../models/Command.js';
 
 export const Add = new Command({
@@ -12,11 +12,18 @@ export const Add = new Command({
       required: true,
     },
   ],
-  action(name: string, options: { [key: string]: any }) {
+  action(name: string) {
     const user = getUser();
+
+    for (const collection of user.collections) {
+      if (collection.name === name) throw new Error('That name is already in use');
+    }
+
     user.collections.push({
       name,
       requests: [],
     });
+
+    updateUser(user);
   },
 });

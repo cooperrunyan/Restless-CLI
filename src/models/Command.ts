@@ -1,5 +1,5 @@
 import * as commander from 'commander';
-import type { CommandInput } from '~/types/CommandInput';
+import type { CommandInput } from '../types/CommandInput';
 
 export class Command extends commander.Command {
   constructor(public input: CommandInput) {

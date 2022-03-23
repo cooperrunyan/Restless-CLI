@@ -1,4 +1,4 @@
-import { Command } from '~/models/Command';
+import { Command } from '../models/Command';
 
 export interface CommandInput {
   name: string;
