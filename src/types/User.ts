@@ -1,6 +1,6 @@
-import type { Collection } from "./Collection"
+import type { Collection } from './Collection';
 
 export type User = {
-  currentSelectedCollection: string | null,
-  collections: Collection[]
-}
+  currentSelectedCollection: string | null;
+  collections: Collection[];
+};

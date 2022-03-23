@@ -22,6 +22,7 @@ export const Add = new Command({
     user.collections.push({
       name,
       requests: [],
+      hosts: [],
     });
 
     user.currentSelectedCollection = name;
