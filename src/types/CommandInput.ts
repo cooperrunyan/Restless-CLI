@@ -1,15 +1,16 @@
-import { Command } from '~/commands/Command';
+import { Command } from '~/models/Command';
 
 export interface CommandInput {
   name: string;
-  version: string;
-  aliases: string[];
-  options: {
+  description: string;
+  version?: string;
+  aliases?: string[];
+  options?: {
     flag: string;
     description: string;
     default?: string | boolean;
   }[];
-  arguments: {
+  arguments?: {
     required?: boolean;
     name: string;
     description: string;

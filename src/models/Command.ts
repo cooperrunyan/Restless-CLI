@@ -8,22 +8,26 @@ export class Command extends commander.Command {
   }
 
   private initialize(command: CommandInput) {
-    this.version(command.version);
-    this.name(command.name);
+    if (command.version) this.version(command.version);
 
-    this.action(command.action);
+    if (command.name) this.name(command.name);
+    if (command.description) this.description(command.description);
+    if (command.action) this.action(command.action);
 
-    for (const option of command.options) {
-      this.option(option.flag, option.description, option.default);
-    }
+    if (command.options)
+      for (const option of command.options) {
+        this.option(option.flag, option.description, option.default);
+      }
 
-    for (const arg of command.arguments) {
-      this.argument(wrapArgument(arg.name, !!arg.required), arg.description, arg.default);
-    }
+    if (command.arguments)
+      for (const arg of command.arguments) {
+        this.argument(wrapArgument(arg.name, !!arg.required), arg.description, arg.default);
+      }
 
-    for (const alias of command.aliases) {
-      this.alias(alias);
-    }
+    if (command.aliases)
+      for (const alias of command.aliases) {
+        this.alias(alias);
+      }
 
     if (command.children)
       for (const child of command.children) {
