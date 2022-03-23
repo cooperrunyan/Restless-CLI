@@ -1,0 +1,21 @@
+{
+  "name": "restless",
+  "version": "0.0.0",
+  "description": "A CLI-based http client",
+  "main": "index.js",
+  "type": "module",
+  "license": "epl-2.0",
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cooperrunyan/Restless.git"
+  },
+  "keywords": [],
+  "author": "Cooper Runyan",
+  "bugs": {
+    "url": "https://github.com/cooperrunyan/Restless/issues"
+  },
+  "homepage": "https://github.com/cooperrunyan/Restless#readme"
+}
