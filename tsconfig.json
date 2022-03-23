@@ -73,14 +73,14 @@
     "strictNullChecks": true, // Make sure null is not equal to undefined
     "strictPropertyInitialization": true, // Make sure a property that isn't marked as optional gets initialized
     "target": "es6", // Target ECMAScript version
-    "types": ["node"], // Lib files for the compiler
+    "types": ["node", "jest"], // Lib files for the compiler
     "typeRoots": ["./node_modules/@types/"], // Type file locations
     "useUnknownInCatchVariables": true, // catch (err) {} is an "unknown" type instead of "any"
     "useDefineForClassFields": true // Use more modern ECMA syntax
   },
 
   "include": ["./src"], // Files to include
-  "exclude": ["./bin", "node_modules"], // Files to exclude
+  "exclude": ["./bin", "./tests", "node_modules"], // Files to exclude
 
   "buildOptions": {
     "assumeChangesOnlyAffectDirectDependencies": true, // Asume that a changed file will only have changes to files directly depending on it
