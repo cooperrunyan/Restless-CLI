@@ -10,5 +10,4 @@ export const Collection = new Command({
   description: 'Control API request collections',
   aliases: ['c', 'collections'],
   children: [Add, Rename, Remove, List, Use],
-  action() {},
 });
