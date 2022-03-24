@@ -31,7 +31,20 @@ export const Set = new Command({
       );
     for (const collection of user.collections) {
       if (collection.name === user.currentSelectedCollection) {
-        collection.hosts[indentifier] = trim(url, false);
+        let link = trim(url, false);
+
+        try {
+          new URL(link);
+        } catch (err) {
+          try {
+            new URL(url);
+            link = url;
+          } catch (err) {
+            throw error('That is not a valid URL.', 'Invalid Arguments');
+          }
+        }
+
+        collection.hosts[indentifier] = link;
       }
     }
     updateUser(user);
