@@ -3,25 +3,19 @@ import { Command } from '../../../models/Command.js';
 import { error } from '../../../utils/error.js';
 import chalk from 'chalk';
 
-export const Rename = new Command({
-  name: 'rename',
-  aliases: ['r'],
-  description: 'Rename an existing host',
+export const Remove = new Command({
+  name: 'remove',
+  aliases: ['rm'],
+  description: 'Remove an existing host',
   arguments: [
     {
-      name: 'old-name',
+      name: 'name',
       type: 'string',
       description: 'The old name of the host',
       required: true,
     },
-    {
-      name: 'new-name',
-      type: 'string',
-      description: 'The new name for the host',
-      required: true,
-    },
   ],
-  action(oldName: string, newName: string) {
+  action(name: string) {
     const user = getUser();
     if (!user.currentSelectedCollection)
       throw error(
@@ -32,11 +26,10 @@ export const Rename = new Command({
     for (const collection of user.collections) {
       if (collection.name !== user.currentSelectedCollection) continue;
 
-      const old = collection.hosts[oldName];
+      const host = collection.hosts[name];
 
-      if (old) {
-        delete collection.hosts[oldName];
-        collection.hosts[newName] = old;
+      if (host) {
+        delete collection.hosts[name];
         exists = true;
       }
     }
@@ -49,7 +42,7 @@ export const Rename = new Command({
     if (exists) {
       updateUser(user);
       console.log(`
-  ${chalk.bold.green('Successfully')} changed host ${chalk.bold(oldName)} to ${chalk.bold(newName)}
+  ${chalk.bold.green('Successfully')} removed host ${chalk.bold(name)}
       `);
     }
   },

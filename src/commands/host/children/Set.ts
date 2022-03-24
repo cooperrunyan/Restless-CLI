@@ -2,6 +2,7 @@ import { getUser, updateUser } from '../../../utils/user.js';
 import { Command } from '../../../models/Command.js';
 import { trim } from '../../../utils/trim.js';
 import { error } from '../../../utils/error.js';
+import chalk from 'chalk';
 
 export const Set = new Command({
   name: 'set',
@@ -34,5 +35,8 @@ export const Set = new Command({
       }
     }
     updateUser(user);
+    console.log(`
+  ${chalk.bold.green('Successfully')} set host ${chalk.bold(indentifier)} to reference the url: ${chalk.bold(url)}
+      `);
   },
 });
