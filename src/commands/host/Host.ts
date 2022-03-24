@@ -1,10 +1,11 @@
 import { Command } from '../../models/Command.js';
 
-import { Set } from './children/Set.js';
+import { Set as SetCommand } from './children/Set.js';
+import { Rename } from './children/Rename.js';
 
 export const Host = new Command({
   name: 'host',
   description: 'Manage all selected hosts',
   aliases: ['h'],
-  children: [Set],
+  children: [SetCommand, Rename],
 });

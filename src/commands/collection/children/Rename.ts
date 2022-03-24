@@ -7,13 +7,13 @@ export const Rename = new Command({
   description: 'Rename a collection',
   arguments: [
     {
-      name: 'oldName',
+      name: 'old-name',
       type: 'string',
       description: 'The old collection name',
       required: true,
     },
     {
-      name: 'newName',
+      name: 'new-name',
       type: 'string',
       description: 'The new collection name',
       required: true,
