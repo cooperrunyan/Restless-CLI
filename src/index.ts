@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Program } from './models/Program.js';
 
 import { Collection } from './commands/collection/Collection.js';
