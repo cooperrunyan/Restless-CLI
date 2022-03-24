@@ -21,7 +21,9 @@ export function help(cmd: any, root: boolean = false): string {
 function header({ name, version, description, aliases }: any, cmd: any) {
   const args = cmd.input.arguments?.map((arg: any) => `${arg.required ? '<' : '['}${arg.name}${arg.required ? '>' : ']'}`) || [];
   return `
-  ${chalk.bold('Usage:')}   ${chalk.magenta(`${name}${args && args[0] ? ' ' + args.join(' ') : ''} [options]`)}
+  ${chalk.bold('Usage:')}   ${chalk.magenta(
+    `${name}${args && args[0] ? ' ' + args.join(' ') : ''} ${cmd.input.children && cmd.input.children[0] ? '<command>' : '[options]'}`,
+  )}
   ${aliases ? `${chalk.bold('Aliases:')} ${chalk.bold('[')}${aliases.map((alias: string) => chalk.blue(alias)).join(', ')}${chalk.bold(']')}\n  ` : ''}${
     version ? `${chalk.bold('Version:')} ${chalk.yellow(version)}\n` : ''
   }
@@ -69,20 +71,56 @@ function options(opts: any) {
 }
 
 function children(childs: any) {
-  const cmds = childs.map((child: any) => {
-    return `${[chalk.blue(child.name), ...(child.aliases || []).map((a: string) => chalk.blue(a))].join(', ')}`;
+  const maxArr1 = childs.map((child: any) => {
+    return `${[child.name, ...(child.aliases || []).map((a: string) => a)].join(', ')}`;
   });
 
   let max = 0;
-  for (const cmd of cmds) {
-    max = Math.max(max, cmd.length);
+  for (const max1 of maxArr1) {
+    max = Math.max(max, max1.length);
+  }
+
+  childs.map((child: any) => {
+    return `${maxArr1[childs.indexOf(child)].padEnd(max + 2)}`;
+  });
+
+  const childCommands = childs.map((child: any) => {
+    if (!child.arguments) return '';
+    return child.arguments.map((arg: any) => `${arg.required ? '<' : '['}${arg.name}:${arg.type}${arg.required ? '>' : ']'}`).join(' ');
+  });
+  console.log(childCommands);
+
+  let max2 = 0;
+  for (const max1 of childCommands) {
+    max2 = Math.max(max2, max1.length);
   }
 
   return `
   ${chalk.bold('Commands:')}
 
-    ${cmds
-      .map((cmd: string) => `${cmd.padEnd(max + 4)} ${chalk.red('-')} ${childs[cmds.indexOf(cmd)].description}`)
-      .join('\n    ')
-      .replaceAll('                 ', '       ')}`;
+    ${childs
+      .map((child: any) => {
+        const command = maxArr1[childs.indexOf(child)]
+          .padEnd(max + 4)
+          .split(',')
+          .map((c: any) => chalk.blue(c))
+          .join(',');
+
+        const arg = childCommands[childs.indexOf(child)]
+          .padEnd(max2 + 2)
+          .split(':')
+          .map((c: string) =>
+            c
+              .split('')
+              .map((char) => (!['<', '>', '[', ']'].includes(char) ? chalk.magenta(char) : chalk.yellow(char)))
+              .join(''),
+          )
+          .join(chalk.yellow(':'));
+
+        const description = child.description;
+
+        return `${command}${arg} ${chalk.red('-')} ${description}`;
+      })
+      .join('\n    ')}
+  `;
 }
