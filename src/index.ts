@@ -10,7 +10,7 @@ import { Send } from './commands/send/Send.js';
 new Program({
   root: true,
   name: 'rest',
-  version: '0.0.0',
+  version: '0.0.3',
   description: 'A CLI-Based REST client',
   children: [Collection, Request, GetStarted, Send],
 });

@@ -21,7 +21,7 @@ export const Set = new Command({
       flag: '--host',
       type: 'string',
       name: 'host',
-      description: 'The host for the request (see `restlss collection set-host`)',
+      description: 'The host for the request (see `collection set-host`)',
     },
     {
       flag: '--url',

@@ -6,7 +6,7 @@ export function help(cmd: any, root: boolean = false): string {
       {
         name: cmd.input.name,
         description: cmd.input.description,
-        version: root ? '0.0.0' : '',
+        version: root ? '0.0.3' : '',
         aliases: cmd.input.aliases,
       },
       cmd,
