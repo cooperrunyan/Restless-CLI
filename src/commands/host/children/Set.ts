@@ -3,9 +3,10 @@ import { Command } from '../../../models/Command.js';
 import { trim } from '../../../utils/trim.js';
 import { error } from '../../../utils/error.js';
 
-export const SetHost = new Command({
-  name: 'set-host',
-  description: 'Set a host',
+export const Set = new Command({
+  name: 'set',
+  aliases: ['s'],
+  description: 'Add or update a host',
   arguments: [
     {
       name: 'indentifier',
