@@ -11,7 +11,7 @@ import { Host } from './commands/host/Host.js';
 new Program({
   root: true,
   name: 'rest',
-  version: '0.0.8',
+  version: '0.0.9',
   description: 'A CLI-Based REST client',
   children: [Collection, Request, GetStarted, Send, Host],
 });
