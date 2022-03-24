@@ -88,7 +88,6 @@ function children(childs: any) {
     if (!child.arguments) return '';
     return child.arguments.map((arg: any) => `${arg.required ? '<' : '['}${arg.name}:${arg.type}${arg.required ? '>' : ']'}`).join(' ');
   });
-  console.log(childCommands);
 
   let max2 = 0;
   for (const max1 of childCommands) {
