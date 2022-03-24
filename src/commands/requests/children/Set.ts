@@ -103,6 +103,13 @@ export const Set = new Command({
 
         if (args.method) {
           request.method = args.method.toUpperCase();
+
+          if (request.method === 'GET') {
+            delete request.body;
+            for (const header of request.headers || []) {
+              if (header[0] === 'Content-type') request.headers?.splice(request.headers?.indexOf(header), 1);
+            }
+          }
         }
 
         updateUser(user);

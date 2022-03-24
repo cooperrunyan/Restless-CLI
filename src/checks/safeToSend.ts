@@ -33,8 +33,6 @@ export function safeToSend(name: string, collection: Collection) {
     for (const [host, url] of Object.entries(collection.hosts)) {
       if (host !== request.host) continue;
       hostExists = true;
-
-      console.log(url);
       req.parsedURL = url;
     }
 
