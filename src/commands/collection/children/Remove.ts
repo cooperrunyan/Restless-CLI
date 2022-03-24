@@ -4,10 +4,11 @@ import { Command } from '../../../models/Command.js';
 export const Remove = new Command({
   name: 'remove',
   description: 'Remove a collection',
-  aliases: ['rm', 'delete'],
+  aliases: ['rm'],
   arguments: [
     {
       name: 'name',
+      type: 'string',
       description: 'The name of the collection to delete',
       required: true,
     },

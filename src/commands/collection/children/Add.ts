@@ -4,10 +4,11 @@ import { Command } from '../../../models/Command.js';
 export const Add = new Command({
   name: 'add',
   description: 'Add a collection',
-  aliases: ['a', 'create', 'make'],
+  aliases: ['a'],
   arguments: [
     {
       name: 'name',
+      type: 'string',
       description: 'The collection name',
       required: true,
     },

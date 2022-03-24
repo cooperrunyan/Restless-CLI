@@ -11,6 +11,7 @@ export const Set = new Command({
   arguments: [
     {
       name: 'name',
+      type: 'string',
       description: 'Create a request',
       required: true,
     },
@@ -18,37 +19,44 @@ export const Set = new Command({
   options: [
     {
       flag: '--host',
+      type: 'string',
       name: 'host',
       description: 'The host for the request (see `restlss collection set-host`)',
     },
     {
       flag: '--url',
+      type: 'string',
       name: 'url',
       description: 'The url for the request',
     },
     {
       flag: '-e, --endpoint',
+      type: 'string',
       name: 'endpoint',
       description: 'Endpoint of the request',
     },
     {
       flag: '-b, --body',
+      type: 'string',
       name: 'body',
       description: 'Body of the request',
     },
     {
-      flag: '-h, --headers',
-      name: 'key:value',
+      flag: '-h, --header',
+      type: 'string',
+      name: 'header',
       description: 'Set a header to the request',
       repeatable: true,
     },
     {
       flag: '-m, --method',
+      type: 'string',
       name: 'method',
       description: 'Change the request method',
     },
     {
       flag: '--yml',
+      type: 'boolean',
       description: 'Use a Yaml body',
     },
   ],
@@ -97,8 +105,8 @@ export const Set = new Command({
 
         if (args.endpoint) request.endpoint = trim(args.endpoint, true);
 
-        if (args.headers) {
-          for (const header of args.headers.map(parseHeader)) setHeader(request, header[0], header[1]);
+        if (args.header) {
+          for (const header of args.header.map(parseHeader)) setHeader(request, header[0], header[1]);
         }
 
         if (args.method) {
@@ -115,61 +123,6 @@ export const Set = new Command({
         updateUser(user);
       }
     }
-
-    // if (args.headers) args.headers = (args.headers as any).map(parseHeader);
-    // if (args.yml && args.body) args.body = JSON.stringify(yml.parse(args.body));
-
-    // if (args.body) {
-
-    // }
-
-    // try {
-    //   if (args.body) {
-    //     JSON.parse(args.body);
-    //     args.headers.unshift(['Content-type', 'application/json']);
-    //   }
-    // } catch (err) {
-    //   args.headers.unshift(['Content-type', 'text/plain']);
-    // }
-
-    // const request: Request = {
-    //   name,
-    // };
-
-    // if (args.endpoint) request.endpoint = trim(args.endpoint, true);
-    // if (args.method) request.method = args.method.toUpperCase() || args.method;
-    // if (args.body) request.body = args.body;
-    // if (args.headers) request.headers = args.headers;
-
-    // const user = getUser();
-
-    // for (const collection of user.collections) {
-    //   if (collection.name === user.currentSelectedCollection) {
-    //     for (const [id] of Object.entries(collection.hosts)) {
-    //       if (args.host === id) {
-    //         request.host = id;
-    //         break;
-    //       }
-    //     }
-
-    //     let exists = false;
-
-    //     for (const req of collection.requests) {
-    //       if (req.name === request.name) exists = true;
-    //     }
-
-    //     if (!exists) collection.requests.push(request);
-    //     else {
-    //       for (const req of collection.requests) {
-    //         if (req.name === name) {
-    //           for (const [key, value] of Object.entries(request)) {
-    //             (req as any)[key] = value;
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
 
     updateUser(user);
   },

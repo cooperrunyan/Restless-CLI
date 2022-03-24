@@ -11,6 +11,6 @@ import { SetHost } from './children/SetHost.js';
 export const Collection = new Command({
   name: 'collection',
   description: 'Control API request collections',
-  aliases: ['c', 'collections'],
+  aliases: ['c'],
   children: [Add, Rename, Remove, List, Use, Current, SetHost],
 });

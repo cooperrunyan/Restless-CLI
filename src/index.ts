@@ -6,6 +6,7 @@ import { Request } from './commands/requests/Request.js';
 import { Send } from './commands/send/Send.js';
 
 new Program({
+  root: true,
   name: 'rest',
   version: '0.0.0',
   description: 'A CLI-Based REST client',

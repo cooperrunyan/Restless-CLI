@@ -10,6 +10,7 @@ export const Check = new Command({
   arguments: [
     {
       name: 'name',
+      type: 'string',
       description: 'Request to be checked',
       required: true,
     },

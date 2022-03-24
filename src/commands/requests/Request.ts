@@ -6,7 +6,7 @@ import { Check } from './children/Check.js';
 
 export const Request = new Command({
   name: 'request',
-  aliases: ['req', 'r', 'rq'],
+  aliases: ['r'],
   description: 'Manage requests',
   children: [SetCommand, Remove, Check],
 });

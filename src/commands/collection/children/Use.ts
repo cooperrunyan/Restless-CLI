@@ -8,6 +8,7 @@ export const Use = new Command({
   arguments: [
     {
       name: 'name',
+      type: 'string',
       description: 'The name of the collection to start using',
     },
   ],

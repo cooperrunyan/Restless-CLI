@@ -4,11 +4,12 @@ import type { Request } from '../../../types/Request.js';
 
 export const Remove = new Command({
   name: 'remove',
-  aliases: ['rm', 'delete'],
+  aliases: ['rm'],
   description: 'Remove an existing request',
   arguments: [
     {
       name: 'name',
+      type: 'string',
       description: 'Request to be removed',
       required: true,
     },

@@ -1,5 +1,6 @@
 import * as commander from 'commander';
 import type { CommandInput } from '../types/CommandInput';
+import { help } from '../utils/helpMessage.js';
 
 export class Command extends commander.Command {
   constructor(public input: CommandInput) {
@@ -13,6 +14,13 @@ export class Command extends commander.Command {
     if (command.name) this.name(command.name);
     if (command.description) this.description(command.description);
     if (command.action) this.action(command.action);
+
+    const isRoot = !!(this.input as any).root;
+    this.configureHelp({
+      formatHelp(cmd) {
+        return help(cmd, isRoot);
+      },
+    });
 
     if (command.options)
       for (const option of command.options) {

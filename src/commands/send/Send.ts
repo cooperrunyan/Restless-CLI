@@ -11,6 +11,7 @@ export const Send = new Command({
   arguments: [
     {
       name: 'request-name',
+      type: 'string',
       description: 'The name of the request to send',
       required: true,
     },

@@ -8,11 +8,13 @@ export const SetHost = new Command({
   arguments: [
     {
       name: 'indentifier',
+      type: 'string',
       description: 'The name to indentify the host',
       required: true,
     },
     {
       name: 'url',
+      type: 'string',
       description: 'Url to the host (ex. http://localhost:4000)',
       required: true,
     },

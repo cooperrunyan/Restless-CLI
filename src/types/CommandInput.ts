@@ -7,15 +7,17 @@ export interface CommandInput {
   aliases?: string[];
   options?: {
     flag: string;
-    name?: string;
     description: string;
+    type: string;
+    name?: string;
     repeatable?: boolean;
     default?: string | boolean;
   }[];
   arguments?: {
-    required?: boolean;
+    type: string;
     name: string;
     description: string;
+    required?: boolean;
     default?: unknown;
   }[];
   children?: Command[];
