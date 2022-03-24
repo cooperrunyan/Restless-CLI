@@ -25,7 +25,7 @@ export const Info = new Command({
         if (request.name !== name) continue;
         exists = true;
 
-        const reqs = safeToSend(name, collection);
+        const reqs = safeToSend(name, collection, true);
         const req = reqs as unknown as {
           parsedURL: string;
           headers: [string, string][];
@@ -37,11 +37,10 @@ export const Info = new Command({
         console.log(`
   ${chalk.bold(request.name + ':')}
 
-
-    ${chalk.blue('Url     ')}: ${req.parsedURL || chalk.grey('undefined')}
-    ${chalk.blue('Endpoint')}: ${request.endpoint || chalk.grey('undefined')}
-    ${chalk.blue('Method     ')}: ${request.method || chalk.grey('undefined')}
-    ${chalk.blue('Host     ')}: ${request.host || chalk.grey('undefined')}
+    ${chalk.blue('Url') + ':'}      ${req.parsedURL || chalk.grey('undefined')}
+    ${chalk.blue('Endpoint') + ':'} ${request.endpoint || chalk.grey('undefined')}
+    ${chalk.blue('Method') + ':'}   ${request.method || chalk.grey('undefined')}
+    ${chalk.blue('Host') + ':'}     ${request.host || chalk.grey('undefined')}
 
 `);
       }
