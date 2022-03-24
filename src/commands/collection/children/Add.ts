@@ -1,6 +1,7 @@
 import { getUser, updateUser } from '../../../utils/user.js';
 import { error } from '../../../utils/error.js';
 import { Command } from '../../../models/Command.js';
+import chalk from 'chalk';
 
 export const Add = new Command({
   name: 'add',
@@ -34,5 +35,8 @@ export const Add = new Command({
     user.currentSelectedCollection = name;
 
     updateUser(user);
+    console.log(`
+  ${chalk.bold.green('Successfully')} created collection: ${chalk.bold(name)}
+      `);
   },
 });
