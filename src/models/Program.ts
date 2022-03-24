@@ -5,6 +5,10 @@ export class Program extends Command {
   constructor(input: CommandInput & { root: boolean }) {
     super(input);
 
-    this.parse(process.argv);
+    try {
+      this.parse(process.argv);
+    } catch (err) {
+      console.log('d');
+    }
   }
 }

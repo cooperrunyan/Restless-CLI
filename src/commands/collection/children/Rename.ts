@@ -1,4 +1,5 @@
 import { getUser, updateUser } from '../../../utils/user.js';
+import { error } from '../../../utils/error.js';
 import { Command } from '../../../models/Command.js';
 
 export const Rename = new Command({
@@ -23,7 +24,8 @@ export const Rename = new Command({
     let exists = false;
 
     for (const collection of user.collections) {
-      if (collection.name === newName) throw new Error('The new name is already in use by a different collection');
+      if (collection.name === newName)
+        throw error('The new name is already in use by a different collection. Run `collection list` to see all used collection names.', 'Not Available');
     }
 
     for (const collection of user.collections) {
@@ -37,7 +39,7 @@ export const Rename = new Command({
       }
     }
 
-    if (!exists) throw new Error('Could not find a collection with that name');
+    if (!exists) throw error('Could not find a collection with that name. Run `collection list` to see all available collections.', 'Not Found');
 
     updateUser(user);
   },

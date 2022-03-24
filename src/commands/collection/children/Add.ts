@@ -1,4 +1,5 @@
 import { getUser, updateUser } from '../../../utils/user.js';
+import { error } from '../../../utils/error.js';
 import { Command } from '../../../models/Command.js';
 
 export const Add = new Command({
@@ -17,7 +18,11 @@ export const Add = new Command({
     const user = getUser();
 
     for (const collection of user.collections) {
-      if (collection.name === name) throw new Error('That name is already in use');
+      if (collection.name === name)
+        throw error(
+          'That name has already been taken by a different collection. If you want to delete the old one, run `collection remove <collection-name>` to delete it, then rerun your creation command.',
+          'Not Available',
+        );
     }
 
     user.collections.push({

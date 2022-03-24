@@ -1,5 +1,6 @@
 import { safeToSend } from '../../checks/safeToSend.js';
 import { getUser } from '../../utils/user.js';
+import { error } from '../../utils/error.js';
 import { Command } from '../../models/Command.js';
 import type { Method } from 'src/types/Request.js';
 import fetch from 'node-fetch';
@@ -24,13 +25,15 @@ export const Send = new Command({
         if (request.name !== name) continue;
         exists = true;
 
-        const req: {
+        const reqs = safeToSend(name, collection);
+
+        const req = reqs as unknown as {
           parsedURL: string;
           headers: [string, string][];
           endpoint: string;
           method: Method;
           body: string;
-        } = safeToSend(name, collection);
+        };
 
         const url = new URL(req.endpoint, req.parsedURL).href;
 
@@ -52,8 +55,11 @@ export const Send = new Command({
           }
         }
       }
+      if (!exists)
+        return error(
+          'Could not find a request by that name in the current collection. Run `collection current` to verify that you are using the correct collection. Run `collection use <name>` to use a collection, `collection list` to see all, and `collection add <name>` to make one.',
+          'Not Found',
+        );
     }
-
-    if (!exists) throw new Error('That request does not exist');
   },
 });
