@@ -10,7 +10,7 @@ export const Set = new Command({
   description: 'Set request',
   arguments: [
     {
-      name: 'name',
+      name: 'request-name',
       type: 'string',
       description: 'Create a request',
       required: true,
