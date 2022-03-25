@@ -309,6 +309,4 @@ http://localhost:3000, then reference the host, instead of the full url
 
 ## <!-- Footer -->
 
----
-
 ###### Cooper Runyan
