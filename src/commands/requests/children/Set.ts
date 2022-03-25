@@ -4,11 +4,14 @@ import { getUser, updateUser } from '../../../utils/user.js';
 import { trim } from '../../../utils/trim.js';
 import * as yml from 'yaml';
 import chalk from 'chalk';
+import path from 'path';
+import fs from 'fs';
+import { error } from '../../../utils/error.js';
 
 export const Set = new Command({
   name: 'set',
   aliases: ['s'],
-  description: 'Set request',
+  description: 'Create a request, or update an existing one',
   arguments: [
     {
       name: 'request-name',
@@ -81,7 +84,33 @@ export const Set = new Command({
         if (request.name !== name) continue;
 
         if (args.body) {
-          const body = args.yml ? JSON.stringify(yml.parse(args.body)) : args.body;
+          let b = args.body;
+
+          try {
+            const content = fs.readFileSync(path.resolve(b), 'utf-8');
+            if (content) {
+              if (/\.txt/gi.test(b) || !b.split('').includes('.')) {
+                b = content;
+              } else {
+                JSON.parse(content);
+                b = JSON.stringify(JSON.parse(content));
+              }
+            }
+          } catch {
+            try {
+              const content = fs.readFileSync(path.resolve(b), 'utf-8');
+              if (content) {
+                b = JSON.stringify(yml.parse(content));
+              }
+            } catch {
+              throw error(
+                'Invalid body inputted. Either the file was not found, or could not be parsed as JSON, YAML, or plaintext. To use plaintext, the file must have the extension ".txt" or none.',
+                'Invalid Body',
+              );
+            }
+          }
+
+          const body = args.yml ? JSON.stringify(yml.parse(b)) : b;
 
           try {
             JSON.parse(body);
