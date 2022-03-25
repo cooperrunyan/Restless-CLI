@@ -61,8 +61,8 @@ export const Set = new Command({
       description: 'Use a Yaml body',
     },
   ],
-  action(name: string, args: any) {
-    const user = getUser();
+  action(name: string, args: any, options) {
+    const user = getUser(options.local);
 
     for (const collection of user.collections) {
       if (collection.name !== user.currentSelectedCollection) continue;
@@ -121,7 +121,7 @@ export const Set = new Command({
           }
         }
 
-        updateUser(user);
+        updateUser(user, options.local);
         console.log(`
   ${chalk.bold(`Added Fields to ${request.name}:`)}
 
@@ -136,7 +136,7 @@ export const Set = new Command({
       }
     }
 
-    updateUser(user);
+    updateUser(user, options.local);
   },
 });
 

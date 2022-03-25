@@ -7,8 +7,8 @@ export const List = new Command({
   description: 'List all collections',
   aliases: ['l'],
   arguments: [],
-  action() {
-    const user = getUser();
+  action(options) {
+    const user = getUser(options.local);
     const collections = user.collections.map((collection) => collection.name);
 
     console.log(`

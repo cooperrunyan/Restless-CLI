@@ -9,9 +9,9 @@ export const List = new Command({
   aliases: ['l'],
   description: 'Add or update a host',
   arguments: [],
-  action() {
+  action(options) {
     let hosts = {};
-    const user = getUser();
+    const user = getUser(options.local);
     if (!user.currentSelectedCollection)
       throw error(
         'No current collection to work on. Run `collection list` to see available collections, then to select one, run `collection use <name>`. To create one, run `collection add <name>`, the new collection will be automatically selected to use.',
@@ -22,7 +22,7 @@ export const List = new Command({
         hosts = collection.hosts;
       }
     }
-    updateUser(user);
+    updateUser(user, options.local);
     console.log(`
   ${chalk.bold('Hosts:')}
 

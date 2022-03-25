@@ -14,8 +14,8 @@ export const Use = new Command({
       description: 'The name of the collection to start using',
     },
   ],
-  action(name: string) {
-    const user = getUser();
+  action(name: string, options) {
+    const user = getUser(options.local);
     let exists = false;
 
     for (const collection of user.collections) {
@@ -28,7 +28,7 @@ export const Use = new Command({
 
     if (!exists) return error('Could not find a collection with that name. Run `collection list` to see all available collections.', 'Not Found');
 
-    updateUser(user);
+    updateUser(user, options.local);
 
     console.log(`
   ${chalk.bold.green('Successfully')} switched current collection to ${chalk.bold(name)}

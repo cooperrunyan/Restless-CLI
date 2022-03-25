@@ -6,8 +6,8 @@ export const List = new Command({
   name: 'list',
   aliases: ['l'],
   description: 'List all requests in the current collection',
-  action() {
-    const user = getUser();
+  action(options) {
+    const user = getUser(options.local);
 
     let requests = (() => {
       for (const collection of user.collections) {

@@ -16,8 +16,8 @@ export const Check = new Command({
       required: true,
     },
   ],
-  action(name: string) {
-    const user = getUser();
+  action(name: string, options) {
+    const user = getUser(options.local);
     let val;
     for (const collection of user.collections) {
       for (const request of collection.requests) {

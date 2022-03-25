@@ -17,8 +17,8 @@ export const Info = new Command({
       required: true,
     },
   ],
-  async action(name: string) {
-    const user = getUser();
+  async action(name: string, options) {
+    const user = getUser(options.local);
     let exists = false;
     for (const collection of user.collections) {
       for (const request of collection.requests) {

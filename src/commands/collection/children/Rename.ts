@@ -20,8 +20,8 @@ export const Rename = new Command({
       required: true,
     },
   ],
-  action(oldName: string, newName: string) {
-    const user = getUser();
+  action(oldName: string, newName: string, options) {
+    const user = getUser(options.local);
     let exists = false;
 
     for (const collection of user.collections) {
@@ -42,7 +42,7 @@ export const Rename = new Command({
 
     if (!exists) throw error('Could not find a collection with that name. Run `collection list` to see all available collections.', 'Not Found');
 
-    updateUser(user);
+    updateUser(user, options.local);
     console.log(`
   ${chalk.bold.green('Successfully')} switched renamed collection from ${chalk.bold(oldName)} to ${chalk.bold(newName)}
     `);

@@ -21,8 +21,8 @@ export const Rename = new Command({
       required: true,
     },
   ],
-  action(oldName: string, newName: string) {
-    const user = getUser();
+  action(oldName: string, newName: string, options) {
+    const user = getUser(options.local);
     if (!user.currentSelectedCollection)
       throw error(
         'No current collection to work on. Run `collection list` to see available collections, then to select one, run `collection use <name>`. To create one, run `collection add <name>`, the new collection will be automatically selected to use.',
@@ -47,7 +47,7 @@ export const Rename = new Command({
       );
 
     if (exists) {
-      updateUser(user);
+      updateUser(user,options.local);
       console.log(`
   ${chalk.bold.green('Successfully')} changed host ${chalk.bold(oldName)} to ${chalk.bold(newName)}
       `);

@@ -5,6 +5,27 @@ import { help } from '../utils/helpMessage.js';
 export class Command extends commander.Command {
   constructor(public input: CommandInput) {
     super(input.name);
+
+    if (!input.options) input.options = [];
+
+    input.options?.unshift({
+      flag: '-h, --help',
+      description: 'Display this help command\n',
+      type: '',
+    });
+
+    input.options?.unshift({
+      flag: '-V, --version',
+      description: 'Display the current CLI version',
+      type: '',
+    });
+
+    input.options?.unshift({
+      flag: '-L, --local',
+      description: 'Use a local data file',
+      type: '',
+    });
+
     this.initialize(input);
   }
 
@@ -13,7 +34,14 @@ export class Command extends commander.Command {
 
     if (command.name) this.name(command.name);
     if (command.description) this.description(command.description);
-    if (command.action) this.action(command.action);
+
+    this.action((...args) => {
+      for (const arg of args) {
+        if (typeof arg === 'object' && arg.help) return this.outputHelp();
+      }
+
+      if (command.action) command.action(...args);
+    });
 
     const isRoot = !!(this.input as any).root;
     this.configureHelp({

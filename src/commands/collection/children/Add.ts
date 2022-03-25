@@ -15,8 +15,8 @@ export const Add = new Command({
       required: true,
     },
   ],
-  action(name: string) {
-    const user = getUser();
+  action(name: string, options: any) {
+    const user = getUser(options.local);
 
     for (const collection of user.collections) {
       if (collection.name === name)
@@ -34,7 +34,7 @@ export const Add = new Command({
 
     user.currentSelectedCollection = name;
 
-    updateUser(user);
+    updateUser(user, options.local);
     console.log(`
   ${chalk.bold.green('Successfully')} created collection: ${chalk.bold(name)}
       `);

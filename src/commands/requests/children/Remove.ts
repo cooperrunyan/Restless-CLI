@@ -15,8 +15,8 @@ export const Remove = new Command({
       required: true,
     },
   ],
-  action(name: string) {
-    const user = getUser();
+  action(name: string, options) {
+    const user = getUser(options.local);
 
     for (const collection of user.collections) {
       for (const request of collection.requests) {
@@ -24,7 +24,7 @@ export const Remove = new Command({
       }
     }
 
-    updateUser(user);
+    updateUser(user, options.local);
     console.log(`
     ${chalk.bold.green('Successfully')} deleted request ${chalk.grey(name)}
     `);

@@ -12,8 +12,8 @@ export const Cat = new Command({
       default: false,
     },
   ],
-  action(options: { collapse?: boolean }) {
-    const user = getUser();
+  action(options) {
+    const user = getUser(options.local);
     const content = options.collapse ? JSON.stringify(user) : JSON.stringify(user, null, 2);
     process.stdout.write(content + '\n');
   },
