@@ -9,7 +9,7 @@ export class Command extends commander.Command {
     if (!input.options) input.options = [];
 
     input.options?.unshift({
-      flag: '-h, --help',
+      flag: '-H, --help',
       description: 'Display this help command\n',
       type: '',
     });
@@ -20,28 +20,24 @@ export class Command extends commander.Command {
       type: '',
     });
 
-    input.options?.unshift({
-      flag: '-L, --local',
-      description: 'Use a local data file',
-      type: '',
-    });
-
     this.initialize(input);
   }
 
   private initialize(command: CommandInput) {
+    this.helpOption('-H, --help', 'Show this help command');
     if (command.version) this.version(command.version);
 
     if (command.name) this.name(command.name);
     if (command.description) this.description(command.description);
 
-    this.action((...args) => {
-      for (const arg of args) {
-        if (typeof arg === 'object' && arg.help) return this.outputHelp();
-      }
+    if (command.action)
+      this.action((...args) => {
+        for (const arg of process.argv) {
+          if (['help', '--help', '-H'].includes(arg)) return this.outputHelp();
+        }
 
-      if (command.action) command.action(...args);
-    });
+        if (command.action) command.action(...args);
+      });
 
     const isRoot = !!(this.input as any).root;
     this.configureHelp({
