@@ -17,7 +17,7 @@ export const Check = new Command({
     },
   ],
   action(name: string, options) {
-    const user = getUser(options.local);
+    const user = getUser();
     let val;
     for (const collection of user.collections) {
       for (const request of collection.requests) {
@@ -28,9 +28,9 @@ export const Check = new Command({
 
     val
       ? console.log(`
-    ${chalk.bold(name + ':')}
+  ${chalk.bold(name + ':')}
 
-      ${chalk.bold.green('Ready')} to send.
+    ${chalk.bold.green('Ready')} to send.
     `)
       : null;
   },

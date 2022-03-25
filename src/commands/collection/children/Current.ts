@@ -6,8 +6,8 @@ export const Current = new Command({
   name: 'current',
   aliases: ['c'],
   description: 'Get current selected collection',
-  action(options) {
-    const user = getUser(options.local);
+  action() {
+    const user = getUser();
     console.log(`
   ${chalk.bold('Current Collection:')}
 

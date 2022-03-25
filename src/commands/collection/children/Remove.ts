@@ -16,7 +16,7 @@ export const Remove = new Command({
     },
   ],
   action(name: string, options) {
-    const user = getUser(options.local);
+    const user = getUser();
     let exists = false;
 
     for (const collection of user.collections) {
@@ -31,7 +31,7 @@ export const Remove = new Command({
 
     if (!exists) throw error('Could not find a collection with that name. Run `collection list` to see all available collections.', 'Not Found');
 
-    updateUser(user, options.local);
+    updateUser(user);
     console.log(`
   ${chalk.bold.green('Successfully')} removed collection: ${chalk.bold(name)}
     `);

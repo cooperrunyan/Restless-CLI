@@ -17,8 +17,20 @@ export const Info = new Command({
       required: true,
     },
   ],
+  options: [
+    {
+      flag: '-b, --body',
+      type: 'boolean',
+      description: 'Examine the body of the request',
+    },
+    {
+      flag: '-c, --collapse',
+      type: 'boolean',
+      description: 'If checking the body, collapse the response',
+    },
+  ],
   async action(name: string, options) {
-    const user = getUser(options.local);
+    const user = getUser();
     let exists = false;
     for (const collection of user.collections) {
       for (const request of collection.requests) {
@@ -34,7 +46,15 @@ export const Info = new Command({
           body: string;
         };
 
-        console.log(`
+        if (options.body) {
+          process.stdout.write(
+            (!options.collapse ? JSON.stringify(request.body || '{}', null, 2) : JSON.stringify(request.body || '{}'))
+              .replaceAll('"{', '{')
+              .replaceAll('\\', '')
+              .replaceAll('}"', '}') + '\n',
+          );
+        } else {
+          console.log(`
   ${chalk.bold(request.name + ':')}
 
     ${chalk.blue('Url') + ':'}      ${req.parsedURL || chalk.grey('undefined')}
@@ -42,7 +62,8 @@ export const Info = new Command({
     ${chalk.blue('Method') + ':'}   ${request.method || chalk.grey('undefined')}
     ${chalk.blue('Host') + ':'}     ${request.host || chalk.grey('undefined')}
 
-`);
+  `);
+        }
       }
 
       if (!exists)

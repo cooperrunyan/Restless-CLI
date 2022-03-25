@@ -23,7 +23,7 @@ export const Set = new Command({
     },
   ],
   action(indentifier: string, url, options) {
-    const user = getUser(options.local);
+    const user = getUser();
     if (!user.currentSelectedCollection)
       throw error(
         'No current collection to work on. Run `collection list` to see available collections, then to select one, run `collection use <name>`. To create one, run `collection add <name>`, the new collection will be automatically selected to use.',
@@ -47,7 +47,7 @@ export const Set = new Command({
         collection.hosts[indentifier] = link;
       }
     }
-    updateUser(user,options.local);
+    updateUser(user);
     console.log(`
   ${chalk.bold.green('Successfully')} set host ${chalk.bold(indentifier)} to reference the url: ${chalk.bold(url)}
       `);

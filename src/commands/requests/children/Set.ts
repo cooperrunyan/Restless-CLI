@@ -65,7 +65,7 @@ export const Set = new Command({
     },
   ],
   action(name: string, args: any, options) {
-    const user = getUser(options.local);
+    const user = getUser();
 
     for (const collection of user.collections) {
       if (collection.name !== user.currentSelectedCollection) continue;
@@ -87,28 +87,38 @@ export const Set = new Command({
           let b = args.body;
 
           try {
-            const content = fs.readFileSync(path.resolve(b), 'utf-8');
-            if (content) {
-              if (/\.txt/gi.test(b) || !b.split('').includes('.')) {
-                b = content;
-              } else {
-                JSON.parse(content);
-                b = JSON.stringify(JSON.parse(content));
-              }
-            }
-          } catch {
             try {
-              const content = fs.readFileSync(path.resolve(b), 'utf-8');
-              if (content) {
-                b = JSON.stringify(yml.parse(content));
-              }
+              JSON.parse(b);
             } catch {
-              throw error(
-                'Invalid body inputted. Either the file was not found, or could not be parsed as JSON, YAML, or plaintext. To use plaintext, the file must have the extension ".txt" or none.',
-                'Invalid Body',
-              );
+              try {
+                yml.parse(b);
+              } catch {
+                try {
+                  const content = fs.readFileSync(path.resolve(b), 'utf-8');
+                  if (content) {
+                    if (/\.txt/gi.test(b) || !b.split('').includes('.')) {
+                      b = content;
+                    } else {
+                      JSON.parse(content);
+                      b = JSON.stringify(JSON.parse(content));
+                    }
+                  }
+                } catch {
+                  try {
+                    const content = fs.readFileSync(path.resolve(b), 'utf-8');
+                    if (content) {
+                      b = JSON.stringify(yml.parse(content));
+                    }
+                  } catch {
+                    throw error(
+                      'Invalid body inputted. Either the file was not found, or could not be parsed as JSON, YAML, or plaintext. To use plaintext, the file must have the extension ".txt" or none.',
+                      'Invalid Body',
+                    );
+                  }
+                }
+              }
             }
-          }
+          } catch {}
 
           const body = args.yml ? JSON.stringify(yml.parse(b)) : b;
 
@@ -150,22 +160,24 @@ export const Set = new Command({
           }
         }
 
-        updateUser(user, options.local);
+        updateUser(user);
         console.log(`
   ${chalk.bold(`Added Fields to ${request.name}:`)}
 
     ${Object.entries(args)
       .map(([arg, value]) => {
+        if (arg === 'yml') return;
         if (arg === 'header' && (request as any)[arg] === {}) return;
         if (arg === 'header' && (request as any)[arg] !== {}) return `${chalk.italic.blue('headers')},`;
         return `${chalk.blue(arg)}: ${chalk.grey((request as any)[arg] || '')}`;
       })
+      .filter((w) => w)
       .join('\n    ')}
         `);
       }
     }
 
-    updateUser(user, options.local);
+    updateUser(user);
   },
 });
 

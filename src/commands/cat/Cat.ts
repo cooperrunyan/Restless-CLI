@@ -13,8 +13,8 @@ export const Cat = new Command({
     },
   ],
   action(options) {
-    const user = getUser(options.local);
-    const content = options.collapse ? JSON.stringify(user) : JSON.stringify(user, null, 2);
-    process.stdout.write(content + '\n');
+    const user = getUser();
+    const content = options.collapse ? JSON.stringify(JSON.parse(JSON.stringify(user))) : JSON.stringify(JSON.parse(JSON.stringify(user)), null, 2);
+    process.stdout.write(content.replaceAll('\\', '') + '\n');
   },
 });
