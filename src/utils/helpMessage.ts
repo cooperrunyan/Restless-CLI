@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { getPackage } from './getProjectRoot.js';
 
 export function help(cmd: any, root: boolean = false): string {
   return (
@@ -6,7 +7,7 @@ export function help(cmd: any, root: boolean = false): string {
       {
         name: cmd.input.name,
         description: cmd.input.description,
-        version: root ? '0.0.9' : '',
+        version: root ? getPackage().version : '',
         aliases: cmd.input.aliases,
       },
       cmd,

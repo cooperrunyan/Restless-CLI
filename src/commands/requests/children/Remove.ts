@@ -1,6 +1,7 @@
 import { getUser, updateUser } from '../../../utils/user.js';
 import { Command } from '../../../models/Command.js';
 import type { Request } from '../../../types/Request.js';
+import chalk from 'chalk';
 
 export const Remove = new Command({
   name: 'remove',
@@ -24,5 +25,8 @@ export const Remove = new Command({
     }
 
     updateUser(user);
+    console.log(`
+    ${chalk.bold.green('Successfully')} deleted request ${chalk.grey(name)}
+    `);
   },
 });

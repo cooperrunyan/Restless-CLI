@@ -2,6 +2,7 @@ import { getUser, updateUser } from '../../../utils/user.js';
 import { Command } from '../../../models/Command.js';
 import type { Request } from '../../../types/Request.js';
 import { safeToSend } from '../../../checks/safeToSend.js';
+import chalk from 'chalk';
 
 export const Check = new Command({
   name: 'check',
@@ -25,6 +26,12 @@ export const Check = new Command({
       }
     }
 
-    console.log(val);
+    val
+      ? console.log(`
+    ${chalk.bold(name + ':')}
+
+      ${chalk.bold.green('Ready')} to send.
+    `)
+      : null;
   },
 });

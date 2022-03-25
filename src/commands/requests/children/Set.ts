@@ -3,6 +3,7 @@ import type { Request } from 'src/types/Request.js';
 import { getUser, updateUser } from '../../../utils/user.js';
 import { trim } from '../../../utils/trim.js';
 import * as yml from 'yaml';
+import chalk from 'chalk';
 
 export const Set = new Command({
   name: 'set',
@@ -121,6 +122,17 @@ export const Set = new Command({
         }
 
         updateUser(user);
+        console.log(`
+  ${chalk.bold(`Added Fields to ${request.name}:`)}
+
+    ${Object.entries(args)
+      .map(([arg, value]) => {
+        if (arg === 'header' && (request as any)[arg] === {}) return;
+        if (arg === 'header' && (request as any)[arg] !== {}) return `${chalk.italic.blue('headers')},`;
+        return `${chalk.blue(arg)}: ${chalk.grey((request as any)[arg] || '')}`;
+      })
+      .join('\n    ')}
+        `);
       }
     }
 
