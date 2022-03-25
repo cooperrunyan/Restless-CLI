@@ -1,7 +1,7 @@
 import fs from 'fs';
 
 export function getProjectRoot() {
-  return '/tmp/.restlss';
+  return '/tmp/.restless';
 }
 
 export function getPackage() {

@@ -25,7 +25,7 @@ export const Set = new Command({
       flag: '--host',
       type: 'string',
       name: 'host',
-      description: 'The host for the request (see `collection set-host`)',
+      description: 'The host for the request',
     },
     {
       flag: '--url',
@@ -58,13 +58,8 @@ export const Set = new Command({
       name: 'method',
       description: 'Change the request method',
     },
-    {
-      flag: '--yml',
-      type: 'boolean',
-      description: 'Use a Yaml body',
-    },
   ],
-  action(name: string, args: any, options) {
+  action(name: string, args: any) {
     const user = getUser();
 
     for (const collection of user.collections) {
@@ -87,49 +82,47 @@ export const Set = new Command({
           let b = args.body;
 
           try {
+            if (b === JSON.parse(b)) throw 'no';
+            b = JSON.stringify(JSON.parse(b));
+          } catch {
             try {
-              JSON.parse(b);
+              if (b === yml.parse(b)) throw 'no';
+              b = JSON.stringify(yml.parse(b));
             } catch {
               try {
-                yml.parse(b);
+                const content = fs.readFileSync(path.resolve(b), 'utf-8');
+                if (content) {
+                  if (/\.txt/gi.test(b) || !b.split('').includes('.')) {
+                    b = content;
+                  } else {
+                    JSON.parse(content);
+                    b = JSON.stringify(JSON.parse(content));
+                  }
+                }
               } catch {
                 try {
                   const content = fs.readFileSync(path.resolve(b), 'utf-8');
                   if (content) {
-                    if (/\.txt/gi.test(b) || !b.split('').includes('.')) {
-                      b = content;
-                    } else {
-                      JSON.parse(content);
-                      b = JSON.stringify(JSON.parse(content));
-                    }
+                    b = JSON.stringify(yml.parse(content));
                   }
                 } catch {
-                  try {
-                    const content = fs.readFileSync(path.resolve(b), 'utf-8');
-                    if (content) {
-                      b = JSON.stringify(yml.parse(content));
-                    }
-                  } catch {
-                    throw error(
-                      'Invalid body inputted. Either the file was not found, or could not be parsed as JSON, YAML, or plaintext. To use plaintext, the file must have the extension ".txt" or none.',
-                      'Invalid Body',
-                    );
-                  }
+                  throw error(
+                    'Invalid body inputted. Either the file was not found, or could not be parsed as JSON, YAML, or plaintext. To use plaintext, the file must have the extension ".txt" or none.',
+                    'Invalid Body',
+                  );
                 }
               }
             }
-          } catch {}
-
-          const body = args.yml ? JSON.stringify(yml.parse(b)) : b;
+          }
 
           try {
-            JSON.parse(body);
+            JSON.parse(b);
             setHeader(request, 'Content-type', 'application/json');
-          } catch (err) {
+          } catch {
             setHeader(request, 'Content-type', 'text/plain');
           }
 
-          request.body = body;
+          request.body = b;
         }
 
         if (args.url) {
@@ -166,7 +159,6 @@ export const Set = new Command({
 
     ${Object.entries(args)
       .map(([arg, value]) => {
-        if (arg === 'yml') return;
         if (arg === 'header' && (request as any)[arg] === {}) return;
         if (arg === 'header' && (request as any)[arg] !== {}) return `${chalk.italic.blue('headers')},`;
         return `${chalk.blue(arg)}: ${chalk.grey((request as any)[arg] || '')}`;

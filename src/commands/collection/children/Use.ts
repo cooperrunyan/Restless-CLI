@@ -12,9 +12,10 @@ export const Use = new Command({
       name: 'name',
       type: 'string',
       description: 'The name of the collection to start using',
+      required: true,
     },
   ],
-  action(name: string, options) {
+  action(name: string) {
     const user = getUser();
     let exists = false;
 
