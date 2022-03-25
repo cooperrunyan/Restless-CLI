@@ -24,7 +24,7 @@ Usage: `restless <command>`
 
 Aliases: `restlss`, `rest`
 
-Version: `0.1.1`
+Version: `0.1.2`
 
 ## Notes
 
