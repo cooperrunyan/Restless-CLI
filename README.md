@@ -9,26 +9,26 @@ If you don't want to globally install the package, omit the `-g` flag
 ### Mac/Linux
 
 ```bash
-sudo npm install -g restlss
+sudo npm install -g restless
 ```
 
 ### Windows
 
 ```bash
-npm i -g restlss
+npm i -g restless
 ```
 
 ## Info
 
 Usage: `restless <command>`
 
-Aliases: `restlss`, `rest`
+Aliases: `rest`
 
 Version: `0.1.2`
 
 ## Notes
 
-- The commands `rest`, `restless` and `restlss` are all interchangeable.
+- The commands `rest` and `restless`are interchangeable.
 - Data persists when updgrading the CLI, because it is stored in a `/tmp/` file
 - Used with commander.js
 - Command output is meant to resemble Cliffy (Deno successor of commander.js)

@@ -1,5 +1,5 @@
 {
-  "name": "restlss",
+  "name": "restless",
   "version": "0.1.2",
   "displayName": "restless",
   "contributors": [
@@ -13,8 +13,7 @@
   "preferGlobal": true,
   "bin": {
     "rest": "bin/index.js",
-    "restless": "bin/index.js",
-    "restlss": "bin/index.js"
+    "restless": "bin/index.js"
   },
   "scripts": {
     "test": "jest"
